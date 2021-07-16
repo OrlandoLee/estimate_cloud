@@ -5,7 +5,7 @@
   "description": "fire calculator cloud",
   "appid": "wx99ee9a579c9fdfbd",
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": false,
     "enhance": false,
     "postcss": false,
@@ -40,5 +40,6 @@
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "condition": {}
 }
