@@ -132,20 +132,32 @@ export default class Index extends Component {
           {/* <EChart echarts={echarts} option={option} onInit={this.onInit} /> */}
         {/* </View> */}
         <View className='example-body'>
-          <Text>总积蓄</Text>
-          <Input type='number' onInput={this.handleChange.bind(this, 'savings')} value={this.toCurrency(this.state.savings)} />
-          <Text>年花费</Text>
-          <Input type='number' onInput={this.handleChange.bind(this, 'cost')} value={this.toCurrency(this.state.cost)} />
-          <Text>股票比例</Text>
-          <Input type='number' onInput={this.handleChange.bind(this, 'stock')} value={this.state.stock} />
-          <Text>债券比例</Text>
-          <Input type='number' onInput={this.handleChange.bind(this, 'bond')} value={this.state.bond} />
-          <Text>现金比例</Text>
-          <Input type='number' onInput={this.handleChange.bind(this, 'cash')} value={this.state.cash} />
+          <View style='display: flex'>
+            <View>
+              <Text>总积蓄</Text>
+              <Input style={{ fontSize: 20, borderColor: 'black', borderWidth: '20px' }} type='number' onInput={this.handleChange.bind(this, 'savings')} value={this.toCurrency(this.state.savings)} />
+            </View>
+            <View>
+              <Text>年花费</Text>
+              <Input type='number' onInput={this.handleChange.bind(this, 'cost')} value={this.toCurrency(this.state.cost)} />
+            </View>
+          </View>
+          <View style='display: flex'>
+            <View>
+              <Text>股票比例</Text>
+              <Input type='number' onInput={this.handleChange.bind(this, 'stock')} value={this.state.stock} />
+            </View>
+            <View>
+              <Text>债券比例</Text>
+              <Input type='number' onInput={this.handleChange.bind(this, 'bond')} value={this.state.bond} />
+            </View>
+            <View>
+              <Text>现金比例</Text>
+              <Input type='number' onInput={this.handleChange.bind(this, 'cash')} value={this.state.cash} />
+            </View>
+          </View>
           <Text>FIRE年龄</Text>
           <Input type='number' onInput={this.handleChange.bind(this, 'years')} value={this.state.years} />
-          
-          
           <Button onClick={this.handleClick.bind(this)} type={validPercent? '' : 'warn'} disabled={validPercent ? false : true} > {validPercent? '更新' : '请确保总和为100%'}</Button>
         </View>
 
