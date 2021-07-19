@@ -335,18 +335,18 @@ Object.defineProperties(ProbabilityCalculator.prototype, {
 
         series: [
           {
-            name: "dead",
+            name: "死亡概率%",
             type: "line",
             stack: "总量",
             areaStyle: {},
             emphasis: {focus: "series"},
             data: dead_array.slice(this._fire_age, dead_array.size).map(function(element){
-              return (element * 100).toFixed(3);
+              return (element * 100).toFixed(2);
             })
           },
 
           {
-            name: "broke",
+            name: "破产概率%",
             type: "line",
             stack: "总量",
             areaStyle: {},
@@ -357,7 +357,7 @@ Object.defineProperties(ProbabilityCalculator.prototype, {
           },
 
           {
-            name: "fire",
+            name: "积蓄足够fire概率%",
             type: "line",
             stack: "总量",
             areaStyle: {},
@@ -369,7 +369,7 @@ Object.defineProperties(ProbabilityCalculator.prototype, {
           },
 
           {
-            name: "win",
+            name: "积蓄超过现在概率%",
             type: "line",
             stack: "总量",
             areaStyle: {},
