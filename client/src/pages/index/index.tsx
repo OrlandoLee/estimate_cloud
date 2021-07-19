@@ -34,14 +34,6 @@ export default class Index extends Component {
     this.setState({
 			[inputName]: Number(e.target.value.replace(/[^0-9.-]+/g,""))
 		})
-
-    if(this.state.stock + this.state.bond + this.cash != 100) {
-      Taro.showToast({
-        title: '股票，债券，现金比例之和应为100',
-        icon: 'none',
-        duration: 2000
-      })
-    }
   }
   
   toCurrency(number) {
@@ -72,18 +64,18 @@ export default class Index extends Component {
       success: function (res) {
         this.setState({ option: res.result });
 
-        Taro.showToast({
-          title: '成功',
-          icon: 'success',
-          duration: 2000
-        })
+        // Taro.showToast({
+        //   title: '成功',
+        //   icon: 'success',
+        //   duration: 2000
+        // })
       }.bind(this),
       fail: function () {
-        Taro.showToast({
-          title: '失败',
-          icon: 'success',
-          duration: 2000
-        })
+        // Taro.showToast({
+        //   title: '失败',
+        //   icon: 'success',
+        //   duration: 2000
+        // })
       }.bind(this)
     })
     // Taro.request({
@@ -131,36 +123,39 @@ export default class Index extends Component {
           {/* 通过组件实例设置数据，并自定义echarts的初始化 */}
           {/* <EChart echarts={echarts} option={option} onInit={this.onInit} /> */}
         {/* </View> */}
-        <View className='example-body'>
-          <View style='display: flex'>
+        <View>
+          <Text className="spacing">修改下列数字，计算你现在的积蓄是否足够退休</Text>
+          <View className="spacing" style='display: flex'>
             <View>
-              <Text>总积蓄</Text>
-              <Input style={{ fontSize: 20, borderColor: 'black', borderWidth: '20px' }} type='number' onInput={this.handleChange.bind(this, 'savings')} value={this.toCurrency(this.state.savings)} />
+              <Text>总积蓄：</Text>
+              <Input className="input" type='number' onInput={this.handleChange.bind(this, 'savings')} value={this.toCurrency(this.state.savings)} />
             </View>
             <View>
-              <Text>年花费</Text>
-              <Input type='number' onInput={this.handleChange.bind(this, 'cost')} value={this.toCurrency(this.state.cost)} />
-            </View>
-          </View>
-          <View style='display: flex'>
-            <View>
-              <Text>股票比例</Text>
-              <Input type='number' onInput={this.handleChange.bind(this, 'stock')} value={this.state.stock} />
-            </View>
-            <View>
-              <Text>债券比例</Text>
-              <Input type='number' onInput={this.handleChange.bind(this, 'bond')} value={this.state.bond} />
-            </View>
-            <View>
-              <Text>现金比例</Text>
-              <Input type='number' onInput={this.handleChange.bind(this, 'cash')} value={this.state.cash} />
+              <Text>年花费：</Text>
+              <Input className="input" type='number' onInput={this.handleChange.bind(this, 'cost')} value={this.toCurrency(this.state.cost)} />
             </View>
           </View>
-          <Text>FIRE年龄</Text>
-          <Input type='number' onInput={this.handleChange.bind(this, 'years')} value={this.state.years} />
-          <Button onClick={this.handleClick.bind(this)} type={validPercent? '' : 'warn'} disabled={validPercent ? false : true} > {validPercent? '更新' : '请确保总和为100%'}</Button>
+          <View className="spacing" style='display: flex'>
+            <View>
+              <Text>股票比例：</Text>
+              <Input className="input" type='number' onInput={this.handleChange.bind(this, 'stock')} value={this.state.stock} />
+            </View>
+            <View>
+              <Text>债券比例：</Text>
+              <Input className="input" type='number' onInput={this.handleChange.bind(this, 'bond')} value={this.state.bond} />
+            </View>
+            <View>
+              <Text>现金比例：</Text>
+              <Input className="input" type='number' onInput={this.handleChange.bind(this, 'cash')} value={this.state.cash} />
+            </View>
+          </View>
+          <View className="spacing" style='display: flex'>
+            <Text>打算退休年龄：</Text>
+            <Input className="input" style='width: 10%' type='number' onInput={this.handleChange.bind(this, 'years')} value={this.state.years} />
+          </View>
+          <View className="spacing"/>
+          <Button primary className="button" onClick={this.handleClick.bind(this)} type={validPercent? '' : 'warn'} disabled={validPercent ? false : true} > {validPercent? '开始计算' : '请确保比例总和为100%'}</Button>
         </View>
-
       </View>
     );
   }

@@ -1,7 +1,26 @@
+page {
+  background-color: #E6E7E9;
+}
+
 .page-index {
   .line-chart {
     display: block;
-    padding: 60px 0 0 30px;
     height: 460px;
   }
+
+  .input {
+    font-size: large;
+    padding: 10px;
+    background-color: white;
+    width: 50%;
+  }
+
+  .spacing {
+    padding: 10px;
+  }
+
+  .button {
+    width: 55%;
+  }
 }
+
