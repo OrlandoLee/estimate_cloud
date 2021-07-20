@@ -24,6 +24,9 @@ export default class Index extends Component {
   }
 
   componentDidMount() {
+    Taro.showShareMenu({
+      withShareTicket: true
+    })
     this.handleClick();
   }
 
