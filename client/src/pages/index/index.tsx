@@ -131,11 +131,11 @@ export default class Index extends Component {
           <View className="spacing" style='display: flex'>
             <View>
               <Text>总积蓄：</Text>
-              <Input className="input" type='number' onInput={this.handleChange.bind(this, 'savings')} value={this.toCurrency(this.state.savings)} />
+              <Input className="input" type='number' onInput={this.handleChange.bind(this, 'savings')} value={this.state.savings} />
             </View>
             <View>
               <Text>年花费：</Text>
-              <Input className="input" type='number' onInput={this.handleChange.bind(this, 'cost')} value={this.toCurrency(this.state.cost)} />
+              <Input className="input" type='number' onInput={this.handleChange.bind(this, 'cost')} value={this.state.cost} />
             </View>
           </View>
           <View className="spacing" style='display: flex'>
