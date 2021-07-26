@@ -323,15 +323,18 @@ Object.defineProperties(ProbabilityCalculator.prototype, {
         legend: {data: ["dead", "broke", "fire", "win"]},
         color: ["#7B7B7B", "#DB625E", "#94E694", "#72C372"],
         toolbox: {feature: {saveAsImage: {}}},
-        grid: {left: "3%", right: "4%", bottom: "3%", containLabel: true},
+        grid: {left: "5%", right: "5%", top: "30", bottom: "25", containLabel: true}, //canvas size
 
         xAxis: [{
           type: "category",
           boundaryGap: false,
-          data: self.range(this._fire_age, this._fire_age + broke_array.length)
+          data: self.range(this._fire_age, this._fire_age + broke_array.length),
+          name: "年龄",
+          nameLocation: "middle",
+          nameGap: 25,
         }],
 
-        yAxis: [{type: "value", max: 100}],
+        yAxis: [{type: "value", max: 100, name: "概率(%)", nameLocation: "middle", nameGap: 25,}],
 
         series: [
           {
