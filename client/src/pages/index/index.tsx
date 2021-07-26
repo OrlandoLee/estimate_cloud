@@ -22,6 +22,13 @@ export default class Index extends Component {
       years: 30
     };
   }
+    
+  onShareAppMessage() {
+    return {
+      title: "我的积蓄足够提前退休吗？",
+      path: '/pages/index/index'
+    };
+  }
 
   componentDidMount() {
     Taro.showShareMenu({
@@ -112,22 +119,21 @@ export default class Index extends Component {
     var validPercent = (this.state.stock + this.state.bond + this.state.cash == 100)
     return (
       <View className="page-index">
-        <View className="line-chart">
+         <View className="line-chart">
           {/* 通过 option 设置数据 */}
-          <EChart echarts={echarts} option={option} />
-        </View>
+          <EChart echarts={echarts} option={option} onInit={this.onInit}/>
+        </View> 
         {/* <View className="line-chart"> */}
           {/* 通过组件实例设置数据 */}
           {/* <EChart ref={this.chart} echarts={echarts} /> */}
         {/* </View> */}
         {/* {exportedImg && <Image mode="widthFix" src={exportedImg}></Image>} */}
         {/* <Button onClick={this.exportImg}>导出图片</Button> */}
-        {/* <View className="line-chart"> */}
-          {/* 通过组件实例设置数据，并自定义echarts的初始化 */}
-          {/* <EChart echarts={echarts} option={option} onInit={this.onInit} /> */}
-        {/* </View> */}
-        <View>
-          <Text className="spacing">修改下列数字，计算你现在的积蓄是否足够退休</Text>
+        <View className="spacing">
+        <View style="white-space:pre-wrap">
+          这个提前退休计算器，在试着帮你回答一个很常见的问题：如果我在退休时拥有xx积蓄，那么我的钱够花一辈子吗?
+        </View>
+          <Text>修改下列数字，计算你现在的积蓄是否足够让你提前退休</Text>
           <View className="spacing" style='display: flex'>
             <View>
               <Text>总积蓄：</Text>
@@ -187,14 +193,22 @@ export default class Index extends Component {
   //   }, 1000);
   // }
 
-  // onInit = (canvas, width, height, dpr) => {
-  //   const chart = echarts.init(canvas, null, {
-  //     width: width,
-  //     height: height,
-  //     devicePixelRatio: dpr // new
-  //   });
-  //   return chart; // 必须return
-  // };
+  onInit = (canvas, width, height, dpr) => {
+    const chart = echarts.init(canvas, null, {
+      width: width,
+      height: height,
+      devicePixelRatio: dpr // new
+    });
+
+    setTimeout(()=>{
+      chart.dispatchAction({
+            type: 'showTip',
+            seriesIndex: 0,
+            dataIndex: 1 
+        });}, 1000); //need to wait till the graph is loaded
+
+    return chart; // 必须return
+  };
 }
 
 
