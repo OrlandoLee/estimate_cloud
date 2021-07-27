@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Taro, { showToast } from "@tarojs/taro";
-import { View, Button, Image, Text, Input, Form, Switch } from "@tarojs/components";
+import { View, Button, Icon, Text, Input } from "@tarojs/components";
 import EChart from "techarts";
 import * as echarts from "./echarts";
 
@@ -123,6 +123,7 @@ export default class Index extends Component {
           {/* 通过 option 设置数据 */}
           <EChart echarts={echarts} option={option} onInit={this.onInit}/>
         </View> 
+
         {/* <View className="line-chart"> */}
           {/* 通过组件实例设置数据 */}
           {/* <EChart ref={this.chart} echarts={echarts} /> */}
@@ -133,14 +134,25 @@ export default class Index extends Component {
         <View style="white-space:pre-wrap">
           这个提前退休计算器，在试着帮你回答一个很常见的问题：如果我在退休时拥有xx积蓄，那么我的钱够花一辈子吗?
         </View>
+        
+
           <Text>修改下列数字，计算你现在的积蓄是否足够让你提前退休</Text>
           <View className="spacing" style='display: flex'>
             <View>
-              <Text>总积蓄：</Text>
+              <View className="tooltip">
+                <Text>总积蓄 </Text>
+                <Icon size='15' type='info_circle' color='#ccc'/>
+                <Text className="tooltiptext"> 退休之后你的总积蓄（除自住房）</Text>
+              </View>
               <Input className="input" type='number' onInput={this.handleChange.bind(this, 'savings')} value={this.state.savings} />
             </View>
             <View>
-              <Text>年花费：</Text>
+
+              <View className="tooltip">
+                <Text>年花费 </Text>
+                <Icon size='15' type='info_circle' color='#ccc'/>
+                <Text className="tooltiptext"> 退休之后每年预计的花费</Text>
+              </View>
               <Input className="input" type='number' onInput={this.handleChange.bind(this, 'cost')} value={this.state.cost} />
             </View>
           </View>
