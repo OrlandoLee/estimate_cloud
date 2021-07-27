@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Taro, { showToast } from "@tarojs/taro";
-import { View, Button, Image, Text, Input, Form, Switch } from "@tarojs/components";
+import { View, Button, Icon, Text, Input } from "@tarojs/components";
 import EChart from "techarts";
 import * as echarts from "./echarts";
 
@@ -123,6 +123,7 @@ export default class Index extends Component {
           {/* 通过 option 设置数据 */}
           <EChart echarts={echarts} option={option} onInit={this.onInit}/>
         </View> 
+
         {/* <View className="line-chart"> */}
           {/* 通过组件实例设置数据 */}
           {/* <EChart ref={this.chart} echarts={echarts} /> */}
@@ -133,33 +134,60 @@ export default class Index extends Component {
         <View style="white-space:pre-wrap">
           这个提前退休计算器，在试着帮你回答一个很常见的问题：如果我在退休时拥有xx积蓄，那么我的钱够花一辈子吗?
         </View>
+        
+
           <Text>修改下列数字，计算你现在的积蓄是否足够让你提前退休</Text>
           <View className="spacing" style='display: flex'>
             <View>
-              <Text>总积蓄：</Text>
+              <View className="tooltip">
+                <Text>总积蓄 </Text>
+                <Icon size='15' type='info_circle' color='#ccc'/>
+                <Text className="tooltiptext"> 退休之后的总积蓄（除自住房外）</Text>
+              </View>
               <Input className="input" type='number' onInput={this.handleChange.bind(this, 'savings')} value={this.state.savings} />
             </View>
             <View>
-              <Text>年花费：</Text>
+
+              <View className="tooltip">
+                <Text>年花费 </Text>
+                <Icon size='15' type='info_circle' color='#ccc'/>
+                <Text className="tooltiptext"> 退休之后预计每年的花费</Text>
+              </View>
               <Input className="input" type='number' onInput={this.handleChange.bind(this, 'cost')} value={this.state.cost} />
             </View>
           </View>
           <View className="spacing" style='display: flex'>
             <View>
-              <Text>股票比例：</Text>
+              <View className="tooltip">
+                <Text>股票比例 </Text>
+                <Icon size='15' type='info_circle' color='#ccc'/>
+                <Text className="tooltiptext"> 输入目标投资组合中股票的整数百分比。股票、债券和现金分配的总和应增加到 100%。在此计算中，资产将每年重新平衡到指定的分配。</Text>
+              </View>
               <Input className="input" type='number' onInput={this.handleChange.bind(this, 'stock')} value={this.state.stock} />
             </View>
             <View>
-              <Text>债券比例：</Text>
+            <View className="tooltip">
+                <Text>债券比例 </Text>
+                <Icon size='15' type='info_circle' color='#ccc'/>
+                <Text className="tooltiptext"> 输入目标投资组合中债券的整数百分比。股票、债券和现金分配的总和应增加到 100%。在此计算中，资产将每年重新平衡到指定的分配。</Text>
+              </View>
               <Input className="input" type='number' onInput={this.handleChange.bind(this, 'bond')} value={this.state.bond} />
             </View>
             <View>
-              <Text>现金比例：</Text>
+              <View className="tooltip">
+                <Text>现金比例 </Text>
+                <Icon size='15' type='info_circle' color='#ccc'/>
+                <Text className="tooltiptext"> 输入目标投资组合中债券的整数百分比。股票、债券和现金分配的总和应增加到 100%。在此计算中，资产将每年重新平衡到指定的分配。</Text>
+              </View>
               <Input className="input" type='number' onInput={this.handleChange.bind(this, 'cash')} value={this.state.cash} />
             </View>
           </View>
           <View className="spacing" style='display: flex'>
-            <Text>打算退休年龄：</Text>
+            <View className="tooltip">
+                <Text>退休年龄 </Text>
+                <Icon size='15' type='info_circle' color='#ccc'/>
+                <Text className="tooltiptext"> 预计退休年龄</Text>
+              </View>
             <Input className="input" style='width: 10%' type='number' onInput={this.handleChange.bind(this, 'years')} value={this.state.years} />
           </View>
           <View className="spacing"/>
@@ -205,7 +233,7 @@ export default class Index extends Component {
             type: 'showTip',
             seriesIndex: 0,
             dataIndex: 1 
-        });}, 1000); //need to wait till the graph is loaded
+        });}, 2000); //need to wait till the graph is loaded
 
     return chart; // 必须return
   };
