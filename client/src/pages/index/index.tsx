@@ -38,21 +38,9 @@ export default class Index extends Component {
   }
 
   handleChange(inputName, e) {
-    console.log([inputName])
-    console.log(e.target.value)
-
     this.setState({
-			[inputName]: Number(e.target.value.replace(/[^0-9.-]+/g,""))
+			[inputName]: e.target.value
 		})
-  }
-  
-  toCurrency(number) {
-    const formatter = new Intl.NumberFormat("zh", {
-      style: "decimal",
-      currency: "CNY"
-    });
-  
-    return formatter.format(number);
   }
 
   handleClick() {
@@ -233,7 +221,7 @@ export default class Index extends Component {
             type: 'showTip',
             seriesIndex: 0,
             dataIndex: 1 
-        });}, 2000); //need to wait till the graph is loaded
+        });}, 5000); //need to wait till the graph is loaded. initial load is really slow
 
     return chart; // 必须return
   };

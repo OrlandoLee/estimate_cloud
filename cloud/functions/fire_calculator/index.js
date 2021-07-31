@@ -320,7 +320,8 @@ Object.defineProperties(ProbabilityCalculator.prototype, {
       return {
         title: {text: "堆叠区域图"},
         tooltip: {trigger: "axis"},
-        legend: {data: ["dead", "broke", "fire", "win"]},
+        // TODO: figure out why the legend don't show up
+        // legend: {data: ["dead", "broke", "fire", "win"]},
         color: ["#7B7B7B", "#DB625E", "#94E694", "#72C372"],
         toolbox: {feature: {saveAsImage: {}}},
         grid: {left: "5%", right: "5%", top: "30", bottom: "25", containLabel: true}, //canvas size
@@ -338,7 +339,7 @@ Object.defineProperties(ProbabilityCalculator.prototype, {
 
         series: [
           {
-            name: "死亡概率%",
+            name: "平均寿命终止概率",
             type: "line",
             stack: "总量",
             areaStyle: {},
@@ -347,9 +348,8 @@ Object.defineProperties(ProbabilityCalculator.prototype, {
               return (element * 100).toFixed(2);
             })
           },
-
           {
-            name: "破产概率%",
+            name: "失败概率",
             type: "line",
             stack: "总量",
             areaStyle: {},
@@ -358,9 +358,8 @@ Object.defineProperties(ProbabilityCalculator.prototype, {
               return (element * 100).toFixed(3);
             })
           },
-
           {
-            name: "积蓄足够fire概率%",
+            name: "余额高于零的概率",
             type: "line",
             stack: "总量",
             areaStyle: {},
@@ -370,9 +369,8 @@ Object.defineProperties(ProbabilityCalculator.prototype, {
               return (element * 100).toFixed(3);
             })
           },
-
           {
-            name: "积蓄超过现在概率%",
+            name: "余额高于初始值概率",
             type: "line",
             stack: "总量",
             areaStyle: {},
