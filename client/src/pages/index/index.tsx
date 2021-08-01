@@ -19,7 +19,13 @@ export default class Index extends Component {
       stock: 90,
       bond: 8,
       cash: 2,
-      years: 30
+      years: 30,
+      extra_income: 0,
+      extra_income_age_start: 30,
+      extra_income_age_end: 50,
+      extra_expense: 0,
+      extra_expense_age_start: 50,
+      extra_expense_age_end: 70
     };
   }
     
@@ -46,7 +52,6 @@ export default class Index extends Component {
   handleClick() {
     // 1. success works on IDE
     // 2. on mobile this doesn't work for preview, because URL is not allowed
-    
     Taro.cloud.callFunction({
       // 云函数名称
       name: 'fire_calculator',
@@ -58,22 +63,28 @@ export default class Index extends Component {
         cash: this.state.cash/100,
         bond: this.state.bond/100,
         years: this.state.years,
+        extra_income: this.state.extra_income,
+        extra_income_age_start: this.state.extra_income_age_start,
+        extra_income_age_end: this.state.extra_income_age_end,
+        extra_expense: this.state.extra_expense,
+        extra_expense_age_start: this.state.extra_expense_age_start,
+        extra_expense_age_end: this.state.extra_expense_age_end,
       },
       success: function (res) {
         this.setState({ option: res.result });
 
-        // Taro.showToast({
-        //   title: '成功',
-        //   icon: 'success',
-        //   duration: 2000
-        // })
+        Taro.showToast({
+          title: '更新成功',
+          icon: 'success',
+          duration: 2000
+        })
       }.bind(this),
       fail: function () {
-        // Taro.showToast({
-        //   title: '失败',
-        //   icon: 'success',
-        //   duration: 2000
-        // })
+        Taro.showToast({
+          title: '更新失败',
+          icon: 'success',
+          duration: 2000
+        })
       }.bind(this)
     })
     // Taro.request({
@@ -177,6 +188,58 @@ export default class Index extends Component {
                 <Text className="tooltiptext"> 预计退休年龄</Text>
               </View>
             <Input className="input" style='width: 10%' type='number' onInput={this.handleChange.bind(this, 'years')} value={this.state.years} />
+          </View>
+          <View className="spacing" style='display: flex'>
+            <View>
+              <View className="tooltip">
+                <Text>额外年收入 </Text>
+                <Icon size='15' type='info_circle' color='#ccc'/>
+                <Text className="tooltiptext"> 退休之后您可能会有一些收入，比如退休金，房租，或者自己的公司收入。</Text>
+              </View>
+              <Input className="input" type='number' onInput={this.handleChange.bind(this, 'extra_income')} value={this.state.extra_income} />
+            </View>
+            <View>
+            <View className="tooltip">
+                <Text>开始年龄 </Text>
+                <Icon size='15' type='info_circle' color='#ccc'/>
+                <Text className="tooltiptext"> 额外年收入开始年龄</Text>
+              </View>
+              <Input className="input" type='number' onInput={this.handleChange.bind(this, 'extra_income_age_start')} value={this.state.extra_income_age_start} />
+            </View>
+            <View>
+              <View className="tooltip">
+                <Text>结束年龄 </Text>
+                <Icon size='15' type='info_circle' color='#ccc'/>
+                <Text className="tooltiptext"> 额外年收入结束年龄</Text>
+              </View>
+              <Input className="input" type='number' onInput={this.handleChange.bind(this, 'extra_income_age_end')} value={this.state.extra_income_age_end} />
+            </View>
+          </View>
+          <View className="spacing" style='display: flex'>
+            <View>
+              <View className="tooltip">
+                <Text>额外年支出 </Text>
+                <Icon size='15' type='info_circle' color='#ccc'/>
+                <Text className="tooltiptext"> 退休之后您可能会有一些额外支出，比如孩子教育，生病支出。</Text>
+              </View>
+              <Input className="input" type='number' onInput={this.handleChange.bind(this, 'extra_expense')} value={this.state.extra_expense} />
+            </View>
+            <View>
+            <View className="tooltip">
+                <Text>开始年龄 </Text>
+                <Icon size='15' type='info_circle' color='#ccc'/>
+                <Text className="tooltiptext"> 额外年支出开始年龄</Text>
+              </View>
+              <Input className="input" type='number' onInput={this.handleChange.bind(this, 'extra_expense_age_start')} value={this.state.extra_expense_age_start} />
+            </View>
+            <View>
+              <View className="tooltip">
+                <Text>结束年龄 </Text>
+                <Icon size='15' type='info_circle' color='#ccc'/>
+                <Text className="tooltiptext"> 额外年支出结束年龄</Text>
+              </View>
+              <Input className="input" type='number' onInput={this.handleChange.bind(this, 'extra_expense_age_end')} value={this.state.extra_expense_age_end} />
+            </View>
           </View>
           <View className="spacing"/>
           <Button primary className="button" onClick={this.handleClick.bind(this)} type={validPercent? '' : 'warn'} disabled={validPercent ? false : true} > {validPercent? '开始计算' : '请确保比例总和为100%'}</Button>
