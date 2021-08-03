@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Taro, { showToast } from "@tarojs/taro";
-import { View, Button, Icon, Text, Input } from "@tarojs/components";
+import { View, Button, Icon, Text, Input, Image } from "@tarojs/components";
 import EChart from "techarts";
 import * as echarts from "./echarts";
 
@@ -244,6 +244,7 @@ export default class Index extends Component {
           <View className="spacing"/>
           <Button primary className="button" onClick={this.handleClick.bind(this)} type={validPercent? '' : 'warn'} disabled={validPercent ? false : true} > {validPercent? '开始计算' : '请确保比例总和为100%'}</Button>
         </View>
+        <Image className="center" src="https://audio-1258431868.cos.ap-chengdu.myqcloud.com/fire_calculator/fire.png"/>
       </View>
     );
   }
