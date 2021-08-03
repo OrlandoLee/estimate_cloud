@@ -49,6 +49,14 @@ export default class Index extends Component {
 		})
   }
 
+  viewContact(src, e) {
+    console.log(src)
+    Taro.previewImage({
+      current: src, // 当前显示图片的http链接
+      urls: [src] // 需要预览的图片http链接列表
+    })
+  }
+
   handleClick() {
     // 1. success works on IDE
     // 2. on mobile this doesn't work for preview, because URL is not allowed
@@ -114,6 +122,7 @@ export default class Index extends Component {
 
   render() {
     const { option, exportedImg } = this.state;
+    const contactSrc = "https://audio-1258431868.cos.ap-chengdu.myqcloud.com/fire_calculator/fire.png";
 
     var validPercent = (this.state.stock + this.state.bond + this.state.cash == 100)
     return (
@@ -244,7 +253,7 @@ export default class Index extends Component {
           <View className="spacing"/>
           <Button primary className="button" onClick={this.handleClick.bind(this)} type={validPercent? '' : 'warn'} disabled={validPercent ? false : true} > {validPercent? '开始计算' : '请确保比例总和为100%'}</Button>
         </View>
-        <Image className="center" src="https://audio-1258431868.cos.ap-chengdu.myqcloud.com/fire_calculator/fire.png"/>
+        <Image showMenuByLongpress onClick={this.viewContact.bind(this, contactSrc)} className="center" src={contactSrc} />
       </View>
     );
   }
