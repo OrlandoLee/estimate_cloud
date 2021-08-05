@@ -124,7 +124,7 @@ export default class Index extends Component {
     const { option, exportedImg } = this.state;
     const contactSrc = "https://audio-1258431868.cos.ap-chengdu.myqcloud.com/fire_calculator/fire.png";
 
-    var validPercent = (this.state.stock + this.state.bond + this.state.cash == 100)
+    var validPercent = ((parseInt(this.state.stock) + parseInt(this.state.bond) + parseInt(this.state.cash)) == 100)
     return (
       <View className="page-index">
          <View className="line-chart">
@@ -252,6 +252,7 @@ export default class Index extends Component {
           </View>
           <View className="spacing"/>
           <Button primary className="button" onClick={this.handleClick.bind(this)} type={validPercent? '' : 'warn'} disabled={validPercent ? false : true} > {validPercent? '开始计算' : '请确保比例总和为100%'}</Button>
+          <View className="spacing"/>
         </View>
         <Image showMenuByLongpress onClick={this.viewContact.bind(this, contactSrc)} className="center" src={contactSrc} />
       </View>
