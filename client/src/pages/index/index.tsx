@@ -80,7 +80,6 @@ export default class Index extends Component {
       },
       success: function (res) {
         this.setState({ option: res.result });
-
         Taro.showToast({
           title: '更新成功',
           icon: 'success',
@@ -123,27 +122,16 @@ export default class Index extends Component {
   render() {
     const { option, exportedImg } = this.state;
     const contactSrc = "https://audio-1258431868.cos.ap-chengdu.myqcloud.com/fire_calculator/fire.png";
-
+    const successRateArray = option?.additionalData?.successRateArray
+    const successRate = successRateArray ? (Math.min(...successRateArray)*100).toFixed(1) : 100
+    const withdrawRate = (this.state.cost/this.state.savings * 100).toFixed(1)
     var validPercent = ((parseInt(this.state.stock) + parseInt(this.state.bond) + parseInt(this.state.cash)) == 100)
     return (
       <View className="page-index">
-         <View className="line-chart">
-          {/* 通过 option 设置数据 */}
-          <EChart echarts={echarts} option={option} onInit={this.onInit}/>
-        </View> 
-
-        {/* <View className="line-chart"> */}
-          {/* 通过组件实例设置数据 */}
-          {/* <EChart ref={this.chart} echarts={echarts} /> */}
-        {/* </View> */}
-        {/* {exportedImg && <Image mode="widthFix" src={exportedImg}></Image>} */}
-        {/* <Button onClick={this.exportImg}>导出图片</Button> */}
-        <View className="spacing">
+      <View className="spacing">
         <View style="white-space:pre-wrap">
           这个提前退休计算器，在试着帮你回答一个很常见的问题：如果我在退休时拥有xx积蓄，那么我的钱够花一辈子吗?
         </View>
-        
-
           <Text>修改下列数字，计算你现在的积蓄是否足够让你提前退休</Text>
           <View className="spacing" style='display: flex'>
             <View>
@@ -155,7 +143,6 @@ export default class Index extends Component {
               <Input className="input" type='number' onInput={this.handleChange.bind(this, 'savings')} value={this.state.savings} />
             </View>
             <View>
-
               <View className="tooltip">
                 <Text>年花费 </Text>
                 <Icon size='15' type='info_circle' color='#ccc'/>
@@ -169,7 +156,7 @@ export default class Index extends Component {
               <View className="tooltip">
                 <Text>股票比例 </Text>
                 <Icon size='15' type='info_circle' color='#ccc'/>
-                <Text className="tooltiptext"> 输入目标投资组合中股票的整数百分比。股票、债券和现金分配的总和应增加到 100%。在此计算中，资产将每年重新平衡到指定的分配。</Text>
+                <Text className="tooltiptext"> 输入未来目标投资组合中，股票的整数百分比。股票、债券和现金分配的总和应为100%。在此计算中，资产将每年重新平衡到指定的分配。</Text>
               </View>
               <Input className="input" type='number' onInput={this.handleChange.bind(this, 'stock')} value={this.state.stock} />
             </View>
@@ -177,7 +164,7 @@ export default class Index extends Component {
             <View className="tooltip">
                 <Text>债券比例 </Text>
                 <Icon size='15' type='info_circle' color='#ccc'/>
-                <Text className="tooltiptext"> 输入目标投资组合中债券的整数百分比。股票、债券和现金分配的总和应增加到 100%。在此计算中，资产将每年重新平衡到指定的分配。</Text>
+                <Text className="tooltiptext"> 输入未来目标投资组合中，债券的整数百分比。股票、债券和现金分配的总和应为100%。在此计算中，资产将每年重新平衡到指定的分配。</Text>
               </View>
               <Input className="input" type='number' onInput={this.handleChange.bind(this, 'bond')} value={this.state.bond} />
             </View>
@@ -185,7 +172,7 @@ export default class Index extends Component {
               <View className="tooltip">
                 <Text>现金比例 </Text>
                 <Icon size='15' type='info_circle' color='#ccc'/>
-                <Text className="tooltiptext"> 输入目标投资组合中债券的整数百分比。股票、债券和现金分配的总和应增加到 100%。在此计算中，资产将每年重新平衡到指定的分配。</Text>
+                <Text className="tooltiptext"> 输入未来目标投资组合中，现金的整数百分比。股票、债券和现金分配的总和应为100%。在此计算中，资产将每年重新平衡到指定的分配。</Text>
               </View>
               <Input className="input" type='number' onInput={this.handleChange.bind(this, 'cash')} value={this.state.cash} />
             </View>
@@ -252,6 +239,12 @@ export default class Index extends Component {
           </View>
           <View className="spacing"/>
           <Button primary className="button" onClick={this.handleClick.bind(this)} type={validPercent? '' : 'warn'} disabled={validPercent ? false : true} > {validPercent? '开始计算' : '请确保比例总和为100%'}</Button>
+          <View className="spacing"/>
+          <Text>以当前资产比例配置({this.state.stock}%股票,{this.state.bond}%债券,{this.state.cash}%现金), {withdrawRate}%支出速度, 您将有{successRate}%概率退休成功</Text>
+          <View className="line-chart">
+            {/* 通过 option 设置数据 */}
+            <EChart echarts={echarts} option={option} onInit={this.onInit}/>
+          </View> 
           <View className="spacing"/>
         </View>
         <Image showMenuByLongpress onClick={this.viewContact.bind(this, contactSrc)} className="center" src={contactSrc} />

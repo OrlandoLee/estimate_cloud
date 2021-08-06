@@ -306,7 +306,7 @@ Object.defineProperties(ProbabilityCalculator.prototype, {
       var win_array = [];
       var fire_array = [];
       var broke_array = [];
-
+      var success_rate_array = [];
 
       result[0].forEach(function(win, i) {
         var dead = dead_array[self._fire_age + i];
@@ -333,6 +333,13 @@ Object.defineProperties(ProbabilityCalculator.prototype, {
         // dead is guaranteed. 
         // for the rest, based on possibility, allocate to win, broke and fire
         broke_array.push((1 - dead) * broke)
+      });
+
+      broke_array.forEach(function(broke, i) {
+        var dead = dead_array[self._fire_age + i];
+        if (dead.nil) return;
+        
+        success_rate_array.push(1 - (broke/(1 - dead)))
       });
 
 
@@ -399,7 +406,10 @@ Object.defineProperties(ProbabilityCalculator.prototype, {
               return (element * 100).toFixed(3);
             })
           }
-        ]
+        ],
+        additionalData: {
+          successRateArray: success_rate_array
+        }
       }
     }
   }
