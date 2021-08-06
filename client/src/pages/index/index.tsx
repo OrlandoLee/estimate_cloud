@@ -240,7 +240,8 @@ export default class Index extends Component {
           <View className="spacing"/>
           <Button primary className="button" onClick={this.handleClick.bind(this)} type={validPercent? '' : 'warn'} disabled={validPercent ? false : true} > {validPercent? '开始计算' : '请确保比例总和为100%'}</Button>
           <View className="spacing"/>
-          <Text>以当前资产比例配置({this.state.stock}%股票,{this.state.bond}%债券,{this.state.cash}%现金), {withdrawRate}%支出速度, 您将有{successRate}%概率退休成功</Text>
+          <Text>以当前资产比例配置({this.state.stock}%股票,{this.state.bond}%债券,{this.state.cash}%现金), {withdrawRate}%支出速度, 您将有{successRate}%概率退休成功。</Text>
+          <Text>下图为详细概率计算结果。</Text>
           <View className="line-chart">
             {/* 通过 option 设置数据 */}
             <EChart echarts={echarts} option={option} onInit={this.onInit}/>
