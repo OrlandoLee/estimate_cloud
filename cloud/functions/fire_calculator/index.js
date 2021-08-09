@@ -348,7 +348,8 @@ Object.defineProperties(ProbabilityCalculator.prototype, {
         tooltip: {trigger: "axis"},
         // TODO: figure out why the legend don't show up
         // legend: {data: ["dead", "broke", "fire", "win"]},
-        color: ["#7B7B7B", "#DB625E", "#94E694", "#72C372"],
+        // color: ["#7B7B7B", "#DB625E", "#94E694", "#72C372"],
+        color: ["#7B7B7B", "#DB625E", "#94E694"],
         toolbox: {feature: {saveAsImage: {}}},
         grid: {left: "5%", right: "5%", top: "30", bottom: "25", containLabel: true}, //canvas size
 
@@ -385,24 +386,13 @@ Object.defineProperties(ProbabilityCalculator.prototype, {
             })
           },
           {
-            name: "余额高于零的概率",
+            name: "成功概率",
             type: "line",
             stack: "总量",
             areaStyle: {},
             emphasis: {focus: "series"},
 
-            data: fire_array.map(function(element){
-              return (element * 100).toFixed(3);
-            })
-          },
-          {
-            name: "余额高于初始值概率",
-            type: "line",
-            stack: "总量",
-            areaStyle: {},
-            emphasis: {focus: "series"},
-
-            data: win_array.map(function(element){
+            data: success_rate_array.map(function(element){
               return (element * 100).toFixed(3);
             })
           }
